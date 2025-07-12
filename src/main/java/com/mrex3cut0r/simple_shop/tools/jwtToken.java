@@ -3,16 +3,21 @@ package com.mrex3cut0r.simple_shop.tools;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.Claims.*;
+import org.springframework.lang.NonNull;
+
 import java.util.Date;
 
 public class jwtToken {
 
-    protected String SecretKey = "secret_key12341243123example";
-    protected JwtBuilder builder;
-    protected JwtParser parser;
-    public static String generate(Long id) {
+    protected static String SecretKey = "secretkey12341243123example";
+    protected static JwtBuilder builder;
+    protected static JwtParser parser;
+    public static String generate(String username) {
         Date expires = new Date(new Date().getTime() + 3600000);
-        return Jwts.builder().setSubject(String.valueOf(id)).setExpiration(expires).compact();
+        return Jwts.builder().setSubject(username).setExpiration(expires).compact();
+    }
+    public static Claims getClaims(@NonNull String token) {
+        return Jwts.parserBuilder().setSigningKey(SecretKey).build().parseClaimsJwt(token).getBody();
     }
     /*
     boolean validate(String jwt) {
@@ -20,4 +25,9 @@ public class jwtToken {
         return true;
     }
     */
+
+
+
+
+
 }

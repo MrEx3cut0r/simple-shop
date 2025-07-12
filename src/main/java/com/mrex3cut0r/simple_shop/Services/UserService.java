@@ -13,6 +13,13 @@ public class UserService {
     @Autowired
     private UserRepository user_repository;
 
+    public void DeleteUser(Long id) {user_repository.deleteById(id);}
+    public Object findByUsername(String username) {
+        return user_repository.findByUsername(username);
+    }
+    public List<User> getAll() {return user_repository.findAll();}
+    public Optional<User> findUser(Long id) {return user_repository.findById(id);}
+
     public Object CreateUser(User user) {
 
         if (user.username.length() < 5)
@@ -25,10 +32,6 @@ public class UserService {
 
     }
 
-    public void DeleteUser(Long id) {
-        user_repository.deleteById(id);
-    }
-
     public User UpdateUser(Long id, User new_user) {
         User found_user = user_repository.findById(id).orElse(null);
         if (found_user != null) {
@@ -38,20 +41,11 @@ public class UserService {
         return null;
     }
 
-    public Optional<User> findUser(Long id) {
-        return user_repository.findById(id);
+    public Object check_password(String username, String password) {
+        User found_user = user_repository.findByUsername(username).orElse(null);
+        return found_user != null ? found_user.password.equals(password) : null;
     }
 
-    public List<User> getAll() {
-        return user_repository.findAll();
-    }
 
-    public Object check_password(Long id, String password) {
-        User found_user = user_repository.findById(id).orElse(null);
-        if (found_user != null)
-            return found_user.password.equals(password);
-
-        return null;
-    }
 
 }

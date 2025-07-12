@@ -10,13 +10,19 @@ public class User {
     public String username;
     public String password;
 
+    public Integer balance;
+
+    public boolean show_balance = false;
+
     public User() {
 
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, boolean show_balance) {
         this.username = username;
         this.password = password;
+        this.balance = 0;
+        this.show_balance = false;
     }
 
     public void update_user(User new_user) {
