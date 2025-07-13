@@ -12,17 +12,18 @@ public class User {
 
     public Integer balance;
 
-    public boolean show_balance = false;
-
+    public boolean show_balance;
+    public boolean seller;
     public User() {
 
     }
 
-    public User(String username, String password, boolean show_balance) {
+    public User(String username, String password, boolean show_balance, boolean seller) {
         this.username = username;
         this.password = password;
         this.balance = 0;
-        this.show_balance = false;
+        this.show_balance = show_balance;
+        this.seller = seller;
     }
 
     public void update_user(User new_user) {

@@ -2,9 +2,9 @@ package com.mrex3cut0r.simple_shop.Services;
 
 import com.mrex3cut0r.simple_shop.Models.User;
 import com.mrex3cut0r.simple_shop.Repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 

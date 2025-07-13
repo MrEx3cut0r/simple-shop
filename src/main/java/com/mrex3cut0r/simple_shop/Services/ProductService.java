@@ -3,12 +3,14 @@ package com.mrex3cut0r.simple_shop.Services;
 import com.mrex3cut0r.simple_shop.Models.Product;
 import com.mrex3cut0r.simple_shop.Repositories.ProductRepository;
 
-import java.sql.Array;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+@Service
 public class ProductService {
+    @Autowired
     private ProductRepository product_repository;
 
     public void findById(Long id) {product_repository.findById(id);}

@@ -1,21 +1,14 @@
 package com.mrex3cut0r.simple_shop.Controllers;
 
-import io.jsonwebtoken.Claims;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import com.mrex3cut0r.simple_shop.Services.UserService;
 import com.mrex3cut0r.simple_shop.Models.User;
 import com.mrex3cut0r.simple_shop.tools.jwtToken;
 
-import java.lang.reflect.Array;
-import java.util.*;
-import java.util.stream.Collectors;
-
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -23,15 +16,7 @@ public class AuthController {
     private UserService service;
 
     @PostMapping("/create-user")
-    public Object register(@RequestParam String username, @RequestParam String password) {
-        return service.CreateUser(new User(username, password, false));    }
-    /*
-    @GetMapping("/")
-    @ResponseBody
-    public Object get_all() {
-        return service.getAll().size() != 0 ? service.getAll() : "No users found.";
-    }
-    */
+    public Object register(@RequestParam String username, @RequestParam String password) {return service.CreateUser(new User(username, password, false, false));}
 
     @PostMapping("/login")
     public Object login(HttpServletResponse response, @RequestParam String username, @RequestParam String password) {
@@ -42,6 +27,7 @@ public class AuthController {
         if ((boolean)check){
             Cookie cookie = new Cookie("jwt", jwtToken.generate(username));
             cookie.setMaxAge(3600000);
+            cookie.setPath("/");
             response.addCookie(cookie);
             return "Successfully authenticated.";
         }
@@ -56,7 +42,7 @@ public class AuthController {
         response.addCookie(cookie);
         return ResponseEntity.ok("Successfully logged out!");
     }
-
+    /*
     @GetMapping("/profile")
     public Object get_claims(HttpServletRequest request) {
         try {
@@ -69,6 +55,6 @@ public class AuthController {
             return "Your session is over.";
         }
     }
-
+    */
 
 }
