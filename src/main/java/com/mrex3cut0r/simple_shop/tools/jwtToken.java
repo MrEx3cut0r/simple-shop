@@ -29,7 +29,9 @@ public class jwtToken {
     }
 
     public static Map<String, Object> extract_cookie(Cookie[] cookie) {
-        return jwtToken.getClaims(Arrays.stream(cookie).map(c -> c.getValue()).collect(Collectors.joining(", ")));
+        try {
+            return jwtToken.getClaims(Arrays.stream(cookie).map(c -> c.getValue()).collect(Collectors.joining(", ")));
+        } catch (Exception e) {return null;}
     }
 
     public static Object get_user(HttpServletRequest request, UserService service) throws IOException {
@@ -47,7 +49,7 @@ public class jwtToken {
             Cookie[] cookie = request.getCookies();
             Map<String, Object> clean_data = extract_cookie(cookie);
             return (String) clean_data.get("sub");
-        } catch (io.jsonwebtoken.ExpiredJwtException e) { return null; }
+        } catch (Exception e) { return null; }
     }
 
 
