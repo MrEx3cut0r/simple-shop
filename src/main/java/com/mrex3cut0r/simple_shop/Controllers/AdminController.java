@@ -15,12 +15,6 @@ public class AdminController {
     @Autowired
     private UserService service;
 
-    @RequestMapping(value="/admin/")
-    protected void AdminMiddleware(HttpServletRequest request) {
-        if (!jwtToken.get_username(request).equals("admin"))
-            ResponseEntity.badRequest();
-    }
-
     @GetMapping("/all")
     @ResponseBody
     public Object get_all() {

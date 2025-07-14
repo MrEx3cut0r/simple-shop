@@ -14,8 +14,9 @@ public class ProductService {
     private ProductRepository product_repository;
 
     public void findById(Long id) {product_repository.findById(id);}
-
-    public void create_product(Product product) {product_repository.save(product);}
+    public List<Product> getAll() {return product_repository.findAll();}
+    public void CreateProduct(Product product) {product_repository.save(product);}
+    public void DeleteProduct(Long id) {product_repository.deleteById(id);}
 
     public Object findByPrice(int starts, int ends) {
         List<Product> products = new ArrayList<Product>();
@@ -26,4 +27,9 @@ public class ProductService {
         return products.size() != 0 ? products : "No products found.";
 
     }
+
+    public List<Product> findByAllUsername(String username) {
+        return product_repository.findAllByUsername(username);
+    }
+
 }

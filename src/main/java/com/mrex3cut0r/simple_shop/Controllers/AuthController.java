@@ -16,7 +16,7 @@ public class AuthController {
     private UserService service;
 
     @PostMapping("/create-user")
-    public Object register(@RequestParam String username, @RequestParam String password) {return service.CreateUser(new User(username, password, false, false));}
+    public Object register(@RequestParam String username, @RequestParam String password,@RequestParam String email) {return service.CreateUser(new User(username, password, email, false, false));}
 
     @PostMapping("/login")
     public Object login(HttpServletResponse response, @RequestParam String username, @RequestParam String password) {

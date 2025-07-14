@@ -6,7 +6,10 @@ import com.mrex3cut0r.simple_shop.Services.UserService;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.lang.NonNull;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
@@ -24,36 +27,27 @@ public class jwtToken {
     public static Claims getClaims(@NonNull String token) {
         return Jwts.parserBuilder().setSigningKey(SecretKey).build().parseClaimsJwt(token).getBody();
     }
-    /*
-    boolean validate(String jwt) {
-        Claims claims = Jwts.parser().setSigningKey(SecretKey).getBody();
-        return true;
-    }
-    */
+
     public static Map<String, Object> extract_cookie(Cookie[] cookie) {
         return jwtToken.getClaims(Arrays.stream(cookie).map(c -> c.getValue()).collect(Collectors.joining(", ")));
     }
 
-    public static Object get_user(HttpServletRequest request, UserService service) {
+    public static Object get_user(HttpServletRequest request, UserService service) throws IOException {
         try {
             Cookie[] cookie = request.getCookies();
-            if (cookie == null)
-                return "Unauthorized";
-            Map<String, Object> clean_data = jwtToken.extract_cookie(cookie);
+            Map<String, Object> clean_data = extract_cookie(cookie);
             return service.findByUsername((String)clean_data.get("sub"));
         } catch (io.jsonwebtoken.ExpiredJwtException e) {
-            return "Your session is over.";
+            return null;
         }
     }
 
     public static Object get_username(HttpServletRequest request) {
         try {
             Cookie[] cookie = request.getCookies();
-            if (cookie == null)
-                return null;
-            Map<String, Object> clean_data = jwtToken.getClaims(Arrays.stream(cookie).map(c -> c.getValue()).collect(Collectors.joining(", ")));
+            Map<String, Object> clean_data = extract_cookie(cookie);
             return (String) clean_data.get("sub");
-        } catch (io.jsonwebtoken.ExpiredJwtException e) { return "unauthorized."; }
+        } catch (io.jsonwebtoken.ExpiredJwtException e) { return null; }
     }
 
 
