@@ -14,11 +14,11 @@ public class User {
     public boolean show_balance;
     public boolean seller;
 
-    public User(String username, String password, String email, boolean b, boolean b1) {
+    public User() {
 
     }
 
-    public User(String username, String password, boolean show_balance, boolean seller) {
+    public User(String username, String password, String email, boolean show_balance, boolean seller) {
         this.username = username;
         this.password = password;
         this.balance = 0;

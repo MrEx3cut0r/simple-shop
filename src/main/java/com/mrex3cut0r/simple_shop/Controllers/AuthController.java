@@ -16,7 +16,7 @@ public class AuthController {
     private UserService service;
 
     @PostMapping("/create-user")
-    public Object register(@RequestParam String username, @RequestParam String password,@RequestParam String email) {return service.CreateUser(new User(username, password, email, false, false));}
+    public Object register(@RequestParam String username, @RequestParam String password,@RequestParam String email) {return service.CreateUser(new User(username, password,email , false, false));}
 
     @PostMapping("/login")
     public Object login(HttpServletResponse response, @RequestParam String username, @RequestParam String password) {
@@ -42,19 +42,5 @@ public class AuthController {
         response.addCookie(cookie);
         return ResponseEntity.ok("Successfully logged out!");
     }
-    /*
-    @GetMapping("/profile")
-    public Object get_claims(HttpServletRequest request) {
-        try {
-            Cookie[] cookie = request.getCookies();
-            if (cookie == null)
-                return "Unauthorized";
-            Map<String, Object> clean_data = jwtToken.getClaims(Arrays.stream(cookie).map(c -> c.getValue()).collect(Collectors.joining(", ")));
-            return service.findByUsername((String)clean_data.get("sub"));
-        } catch (io.jsonwebtoken.ExpiredJwtException e) {
-            return "Your session is over.";
-        }
-    }
-    */
 
 }
