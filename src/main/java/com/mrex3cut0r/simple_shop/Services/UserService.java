@@ -12,13 +12,25 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository user_repository;
-
+    @Autowired
+    private RedisService redis_service;
     public void DeleteUser(Long id) {user_repository.deleteById(id);}
     public Object findByUsername(String username) {
         return user_repository.findByUsername(username);
     }
     public List<User> getAll() {return user_repository.findAll();}
-    public Optional<User> findUser(Long id) {return user_repository.findById(id);}
+    public Optional<User> findUser(Long id) {
+        Object user;
+        if ((user = redis_service.findUser(id)) != null)
+            return (Optional<User>)user;
+
+        user = user_repository.findById(id);
+        if (user != null) {
+            redis_service.addUser((User) user);
+            return (Optional<User>) user;
+        }
+        return null;
+    }
 
     public Object CreateUser(User user) {
 

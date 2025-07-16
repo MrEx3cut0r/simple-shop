@@ -7,13 +7,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
     @Autowired
     private ProductRepository product_repository;
+    @Autowired
+    private RedisService redis_service;
+    public Object findById(Long id) {
+        if (redis_service.findProduct(id) != null) {
+            return redis_service.findProduct(id);
+        }
 
-    public void findById(Long id) {product_repository.findById(id);}
+        if (redis_service.findProduct(id) == null) {
+            Object product = product_repository.findById(id);
+            if (product != null) {
+                redis_service.addProduct((Product)product);
+                return product;
+            }
+        }
+
+        return null;
+
+    }
     public List<Product> getAll() {return product_repository.findAll();}
     public void CreateProduct(Product product) {product_repository.save(product);}
     public void DeleteProduct(Long id) {product_repository.deleteById(id);}

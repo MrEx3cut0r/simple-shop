@@ -1,5 +1,7 @@
 package com.mrex3cut0r.simple_shop.Models;
 import jakarta.persistence.*;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.TimeToLive;
 
 @Entity
 @Table(name="users")
