@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>войти в учетную запись</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+  <h1>Войти в учетную запись</h1>
+  <form action="/auth/login" id="loginform" method=POST>
+    <input id='username' type="username" name="username" placeholder="Ваше имя" required>
+    <input id='password' type="password" placeholder="Пароль" required>
+    <button type="submit">войти</button>
+  </form>
+  <div class="footer">
+    <p>нет учетной записи?<a href="/auth/signup">создать</a></p>
+  </div>
+</div>
+</body>
+</html>

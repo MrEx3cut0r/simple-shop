@@ -5,6 +5,7 @@ import com.mrex3cut0r.simple_shop.Services.ProductService;
 import com.mrex3cut0r.simple_shop.Services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,5 @@ public class MainController {
     public List<Product> products() {
         return product_service.getAll();
     }
-
 
 }

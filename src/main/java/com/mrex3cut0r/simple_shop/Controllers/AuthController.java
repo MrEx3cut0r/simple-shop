@@ -8,14 +8,33 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-@RestController
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
     private UserService service;
 
-    @PostMapping("/create-user")
+    @GetMapping("/signup")
+    public String signup() {
+        return "signup";
+    }
+
+    @GetMapping("/signin")
+    public String signin() {
+        return "signin";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "logout";
+    }
+
+    @PostMapping("/register")
     public Object register(@RequestParam String username, @RequestParam String password,@RequestParam String email) {return service.CreateUser(new User(username, password,email , false, false));}
 
     @PostMapping("/login")
@@ -31,16 +50,17 @@ public class AuthController {
             response.addCookie(cookie);
             return "Successfully authenticated.";
         }
-        return false;
+        return "wrong password.";
     }
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     @ResponseBody
-    public ResponseEntity<String> logout(HttpServletResponse response) {
+    public ModelAndView logout_action(ModelMap model, HttpServletResponse response) {
         Cookie cookie = new Cookie("jwt", null);
         cookie.setMaxAge(0);
         cookie.setPath("/");
         response.addCookie(cookie);
-        return ResponseEntity.ok("Successfully logged out!");
+        model.addAttribute("attribute", "redirectWithRedirectPrefix");
+        return new ModelAndView("redirect:/auth/signin", model);
     }
 
 }

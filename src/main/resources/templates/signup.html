@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать учетную запись</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+<div class="container">
+  <h1>Создать учетную запись</h1>
+  <form action="/auth/register" id="registerform" method=POST>
+    <input id='username' type="username" name="username" placeholder="Ваше имя" required>
+    <input type="email" id="email" name="email" placeholder="Почта" required>
+    <input id='password' type="password" placeholder="Пароль" required>
+    <button type="submit">Зарегистрироваться</button>
+  </form>
+  <div class="footer">
+    <p>Уже есть учетная запись? <a href="/auth/signin">Войти</a></p>
+  </div>
+</div>
+</body>
+</html>

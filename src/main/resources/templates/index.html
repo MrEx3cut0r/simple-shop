@@ -1,0 +1,74 @@
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title><!DOCTYPE html>
+            <html lang="ru">
+            <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Добро пожаловать!</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            body {
+                margin: 0;
+                font-family: 'Roboto', sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #f0f4f8;
+                color: #333;
+                text-align: center;
+            }
+
+            .container {
+                background: white;
+                padding: 20px 40px;
+                border-radius: 10px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s;
+            }
+
+            .container:hover {
+                transform: scale(1.05);
+            }
+
+            h1 {
+                font-size: 2.5em;
+                margin-bottom: 10px;
+            }
+
+            p {
+                font-size: 1.2em;
+                line-height: 1.6;
+            }
+
+            .button {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 20px;
+                font-size: 1.1em;
+                color: white;
+                background-color: #007bff;
+                border: none;
+                border-radius: 5px;
+                text-decoration: none;
+                transition: background-color 0.3s;
+            }
+
+            .button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+
+    <body>
+    <div class="container">
+        <h1>Добро пожаловать!</h1>
+        <p>Мы рады видеть вас на нашем сайте. Здесь вы найдете множество интересных материалов и ресурсов.</p>
+        <a href="/auth/signup" class="button">Начать</a>
+    </div>
+    </body>
+
+    </html>
