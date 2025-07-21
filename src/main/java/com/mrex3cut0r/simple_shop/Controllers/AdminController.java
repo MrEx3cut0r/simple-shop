@@ -21,7 +21,7 @@ public class AdminController {
         return service.getAll().size() != 0 ? service.getAll() : "No users found.";
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Long delete_user(@PathVariable Long id) {
         service.DeleteUser(id);
         return id;

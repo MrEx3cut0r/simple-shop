@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профиль Пользователя</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .profile-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-header img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+
+        .profile-header h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        .profile-header p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .profile-description {
+            margin: 20px 0;
+            color: #444;
+        }
+
+        .contact-info {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 20px 0;
+        }
+
+        .contact-info h3 {
+            margin-top: 0;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+  <div class="profile-header">
+    <div>
+      <h1>${username}</h1>
+      <h2>${email}</h2>
+      <h2>${balance}</h2>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

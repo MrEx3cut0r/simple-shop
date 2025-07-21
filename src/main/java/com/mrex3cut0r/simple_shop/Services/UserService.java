@@ -24,8 +24,8 @@ public class UserService {
         if ((user = redis_service.findUser(id)) != null)
             return (Optional<User>)user;
 
-        user = user_repository.findById(id);
-        if (user != null) {
+
+        if ((user = user_repository.findById(id)) != null) {
             redis_service.addUser((User) user);
             return (Optional<User>) user;
         }

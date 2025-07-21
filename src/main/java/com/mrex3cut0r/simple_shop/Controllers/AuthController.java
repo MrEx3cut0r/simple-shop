@@ -38,21 +38,21 @@ public class AuthController {
     public Object register(@RequestParam String username, @RequestParam String password,@RequestParam String email) {return service.CreateUser(new User(username, password,email , false, false));}
 
     @PostMapping("/login")
-    public Object login(HttpServletResponse response, @RequestParam String username, @RequestParam String password) {
+    public Object login(ModelMap model, HttpServletResponse response, @RequestParam String username, @RequestParam String password) {
         Object check = service.check_password(username, password);
         if (check == null) {
-            return "User not found.";
+            return new ModelAndView("redirect:/auth/signin", model);
         }
         if ((boolean)check){
             Cookie cookie = new Cookie("jwt", jwtToken.generate(username));
             cookie.setMaxAge(3600000);
             cookie.setPath("/");
             response.addCookie(cookie);
-            return "Successfully authenticated.";
+            return new ModelAndView("redirect:/me/", model);
         }
-        return "wrong password.";
+        return new ModelAndView("redirect:/auth/signin", model);
     }
-    @PostMapping("/logout")
+    @PutMapping("/logout")
     @ResponseBody
     public ModelAndView logout_action(ModelMap model, HttpServletResponse response) {
         Cookie cookie = new Cookie("jwt", null);

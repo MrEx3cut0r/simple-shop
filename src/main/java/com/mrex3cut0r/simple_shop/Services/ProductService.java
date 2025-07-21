@@ -16,17 +16,17 @@ public class ProductService {
     @Autowired
     private RedisService redis_service;
     public Object findById(Long id) {
-        if (redis_service.findProduct(id) != null) {
-            return redis_service.findProduct(id);
+        Object product;
+        if ((product = redis_service.findProduct(id)) != null) {
+            return product;
         }
 
-        if (redis_service.findProduct(id) == null) {
-            Object product = product_repository.findById(id);
-            if (product != null) {
-                redis_service.addProduct((Product)product);
-                return product;
-            }
+        product = product_repository.findById(id);
+        if (product != null) {
+            redis_service.addProduct((Product)product);
+            return product;
         }
+
 
         return null;
 
