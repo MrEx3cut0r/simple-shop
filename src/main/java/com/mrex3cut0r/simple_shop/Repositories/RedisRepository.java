@@ -12,7 +12,7 @@ public interface RedisRepository {
     public void addProduct(Product product);
     public void deleteUser(Long id);
     public void deleteProduct(Long id);
-    public Object findUser(Long id);
-    public Object findProduct(Long id);
+    public User findUser(Long id);
+    public Product findProduct(Long id);
 
 }

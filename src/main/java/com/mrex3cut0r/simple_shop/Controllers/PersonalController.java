@@ -8,14 +8,13 @@ import com.mrex3cut0r.simple_shop.tools.jwtToken;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/me")
 public class PersonalController{
 
@@ -26,9 +25,9 @@ public class PersonalController{
 
     @GetMapping("/")
     @ResponseBody
-    public String me(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public Object me(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Object user = jwtToken.get_user(request, user_service);
-        return "me";
+        return user;
     }
 
     @PostMapping("/create-product")

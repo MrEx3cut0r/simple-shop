@@ -15,19 +15,19 @@ public class UserService {
     @Autowired
     private RedisService redis_service;
     public void DeleteUser(Long id) {user_repository.deleteById(id);}
-    public Object findByUsername(String username) {
-        return user_repository.findByUsername(username);
+    public User findByUsername(String username) {
+        return user_repository.findByUsername(username).orElse(null);
     }
     public List<User> getAll() {return user_repository.findAll();}
-    public Optional<User> findUser(Long id) {
-        Object user;
+    public User findUser(Long id) {
+        Object user = null;
         if ((user = redis_service.findUser(id)) != null)
-            return (Optional<User>)user;
+            return (User)user;
 
 
         if ((user = user_repository.findById(id)) != null) {
             redis_service.addUser((User) user);
-            return (Optional<User>) user;
+            return (User) user;
         }
         return null;
     }
@@ -57,7 +57,6 @@ public class UserService {
         User found_user = user_repository.findByUsername(username).orElse(null);
         return found_user != null ? found_user.password.equals(password) : null;
     }
-
 
 
 }
