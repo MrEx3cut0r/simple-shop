@@ -14,18 +14,21 @@ public class UserService {
     private UserRepository user_repository;
     @Autowired
     private RedisService redis_service;
-    public void DeleteUser(Long id) {user_repository.deleteById(id);}
-    public User findByUsername(String username) {
-        return user_repository.findByUsername(username).orElse(null);
+    public void DeleteUser(Long id) {
+        user_repository.deleteById(id);
+        User redis_user = redis_service.findUser(id);
+        if (redis_user != null)
+            redis_service.deleteUser(id);
     }
+    public User findByUsername(String username) {return user_repository.findByUsername(username).orElse(null);}
     public List<User> getAll() {return user_repository.findAll();}
     public User findUser(Long id) {
-        Object user = null;
-        if ((user = redis_service.findUser(id)) != null)
+        Object user = redis_service.findUser(id);
+        if (user != null)
             return (User)user;
 
-
-        if ((user = user_repository.findById(id)) != null) {
+        user = user_repository.findById(id).orElse(null);
+        if (user != null) {
             redis_service.addUser((User) user);
             return (User) user;
         }
@@ -46,6 +49,11 @@ public class UserService {
 
     public User UpdateUser(Long id, User new_user) {
         User found_user = user_repository.findById(id).orElse(null);
+        User redis_user = redis_service.findUser(id);
+
+        if (redis_user != null)
+            redis_user.update_user(new_user);
+
         if (found_user != null) {
             found_user.update_user(new_user);
             return user_repository.save(found_user);

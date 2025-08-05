@@ -41,7 +41,6 @@ public class MainController {
             return ResponseEntity.ok(null);
         User current = (User)jwtToken.get_user(request, user_service);
         User seller = user_service.findByUsername(product.username);
-
         Object transaction = transaction_service.Transaction(current,seller, product.price, product.id);
         return ResponseEntity.ok(transaction);
 
